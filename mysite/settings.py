@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'e4-xf93yr@al$1*c^xh@w@-z3)3$6k!ncof=k=l4^js0-jni^k'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -83,8 +83,8 @@ DATABASES = {
         'NAME': 'business',
         'HOST': '127.0.0.1',
         'PORT': '3306',
-        'USER': 'root',
-        'PASSWORD': 'abhishe1',
+        'USER': '',
+        'PASSWORD': '',
     }
 }
 
@@ -138,8 +138,8 @@ Email_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 25
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'bookbusiness9@gmail.com'
-EMAIL_HOST_PASSWORD = 'Abhishek1234@'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
