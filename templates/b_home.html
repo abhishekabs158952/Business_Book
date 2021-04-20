@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!--about section details-->
+<section id="about" class="about">
+  <div class="container">
+    <!--the thumbnails of shop and items code part-->
+    <div class="album py-5">
+      <div class="container my-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {% for i in shop %}
+          <div class="col shadow-lg rounded">
+            <div class="card shadow-sm">
+              <img src="https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1141999659%2F0x0.jpg">
+              <div class="card-body">
+                <p class="card-text">{{ i.shopName }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <form action="/shopDetails" method="POST">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-sm btn-outline-success" name="shopUser" value='{{ i.userName }}'>View</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          <!--Items Thumbnail code-->
+          {% for i in item %}
+          <div class="col shadow-lg rounded">
+            <div class="card shadow-sm">
+              <img src="https://images.everydayhealth.com/images/apples-101-about-1440x810.jpg">
+              <div class="card-body">
+                <p class="card-text">{{i.itemName}}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <form action="/itemDetails" method="POST">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-sm btn-outline-success" name="shopUser" value='{{ i.itemName }}'>View</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <!--the thumbnails code ends here and the popup loginpage code starts-->
+    
+</section>
+{% endblock content %}

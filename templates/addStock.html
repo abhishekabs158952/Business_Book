@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="">
+    <form action="addStock" method="POST" class="container shadow mt-5" style="width:50%">
+     {% csrf_token %} 
+        <h1 >Add Stock</h1>
+        <!--<div class="mb-3">
+            <label for="item_id" class="form-label">Item id</label>
+            <input type="number" class="form-control" id="itemId" name="itemId">
+        </div>-->
+        <div class="mb-3">
+            <label for="item_name" class="form-label">Item Name</label>
+            <input type="text" class="form-control" id="itemName" name="itemName">
+        </div>
+        <div class="mb-3">
+            <label for="item_cost" class="form-label">Cost</label>
+            <input type="number" class="form-control" id="cost" name="cost">
+        </div>
+        <div class="mb-3">
+            <label for="customer_price" class="form-label">customer price</label>
+            <input type="number" class="form-control" id="customerPrice" name="customerPrice">
+        </div>
+        <div class="mb-3">
+            <label for="seller_price" class="form-label">seller price</label>
+            <input type="number" class="form-control" id="sellerPrice" name="sellerPrice">
+        </div>
+        <div class="mb-3">
+            <label for="Stock" class="form-label">Stock</label>
+            <input type="number" class="form-control" id="stock" name="stock">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button><br>
+        <a href="@@">back to home</a>
+    </form>
+    </div>
+    {% endblock content %}

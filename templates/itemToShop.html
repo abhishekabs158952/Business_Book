@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="mySidebar" class="sidebar bg-dark">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  {% if isLogin %}
+  <a href="#">Hey {{user.username}}!</a>
+  <a href="myOrder">My Orders</a>
+  <a href="cart">Cart</a>
+  <a href="#">Contact Us</a>
+  <a href="logout">Logout</a>
+
+  {% else %}
+
+  {% endif %}
+</div>
+<!--about section details-->
+<section id="about" class="about">
+  <div class="container">
+    <!--the thumbnails of shop and items code part-->
+    <div class="album py-5">
+      <div class="container my-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {% for i in shop %}
+          <div class="col shadow-lg rounded">
+            <div class="card shadow-sm">
+              <img src="https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1141999659%2F0x0.jpg">
+              <div class="card-body">
+                <p class="card-text">{{ i.shopName }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <form action="/shopDetails" method="POST">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-sm btn-outline-success" name="shopUser" value='{{ i.userName }}'>View</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <!--the thumbnails code ends here and the popup loginpage code starts-->
+    <div class="form-popup" id="myForm">
+      <form class="form-container" action='login' method='post'>
+        {% csrf_token %}
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="userName" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password1" required>
+        <a href='/' class="text-start">
+          <p class="text-start fs-6"><b>Forgot Password :(</b></p>
+        </a>
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button type="submit" class="btn">Login</button>
+        <div class="btn-group2 gap-3">
+          <a href="{% url 'customer_signup' %}" class="btn btn-secondary">Register as Customer</a>
+          <a href="{% url 'seller_signup' %}" class="btn btn-secondary">Register as Seller</a>
+        </div>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+      </form>
+    </div>
+</section>
+{% endblock content %}

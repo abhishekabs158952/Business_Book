@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+  {% if messages %}
+  {% for message in messages%}
+  <h2>{{message}}</h2>
+  {% endfor %}
+  {% endif %}
+  <form>
+    {% csrf_token %}
+    <div>
+      <h1>{{user.username}}</h1>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">S.No</th>
+          <th scope="col">Item Id</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i,j in item %}
+        <tr>
+          <th scope="row">1</th>
+          <td>{{i.itemId}}</td>
+          <td>{{i.quantity}}</td>
+          <td>{{i.price}}</td>
+          <td>{{ j }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <th scope="row">Total</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{ totalAmount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+{% endblock content %}

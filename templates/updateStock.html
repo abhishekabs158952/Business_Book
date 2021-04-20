@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+      {% if isLogin %}
+      <a href="#">Hey {{user.username}}!</a>
+      <a href="#">Customer Orders</a>
+      <a href="addStock">ADD Stocks</a>
+      <a href="myStock">My Stocks</a>
+      <a href="billBook">Bill Book</a>
+      <a href="#">Contact Us</a>
+      <a href="logout">Logout</a>
+      
+      {% else %}
+       
+      {% endif %}
+    </div>
+    <div class="container">
+        <form action="updateStockSubmit" method="POST">
+            {% csrf_token %}
+            <input name="length" value="{{noOfItem}}" style="display:none">
+            <div>
+                <h1>{{shopName}}</h1>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Add/remove Quantity</th>
+                        <th scope="col">Customer Price</th>
+                        <th scope="col">Edit Customer Price</th>
+                        <th scope="col">Seller Price</th>
+                        <th scope="col">Edit Seller Price</th>
+                        <th scope="col">Cost</th>
+                        <th scope="col">Edit Cost</th>
+                        <th scope="col">Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i,j in zipped %}
+                    <tr>
+                        <input name="{{j}}id" value="{{i.itemId}}" style="display:none">
+                        <th scope="row">{{j}}</th>
+                        <td>{{i.itemName}}</td>
+                        <td><input type="Number" class="form-control" name='{{j}}q'></td>
+                        <td>{{i.customerPrice}}</td>
+                        <td><input type="Number" class="form-control" name='{{j}}cp'></td>
+                        <td>{{i.sellerPrice}}</td>
+                        <td><input type="Number" class="form-control" name='{{j}}sp'></td>
+                        <td>{{i.cost}}</td>
+                        <td><input type="Number" class="form-control" name='{{j}}c'></td>
+                        <td><button type="submit" class="btn btn-danger float-end" name="removeItem" value="{{i.itemId}}">Remove</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary float-end" name="updateStock" value="update">Update</button>
+        </form>
+    </div>
+    
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <form>
+            {% csrf_token %}
+            <div>
+                <h1>{{user.username}}</h1>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Item Id</th>
+                        <th scope="col">Item Name</th>
+                        <th scope="col">Stock</th>
+                        <th scope="col">Cost</th>
+                        <th scope="col">Customer Price</th>
+                        <th scope="col">Seller Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in item %}
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>{{i.itemId}}</td>
+                        <td>{{i.itemName}}</td>
+                        <td>{{i.itemStock}}</td>
+                        <td>{{i.cost}}</td>
+                        <td>{{i.customerPrice}}</td>
+                        <td>{{i.sellerPrice}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
+        <a href="@@">back to home</a>
+    </div>
+    {% endblock content %}

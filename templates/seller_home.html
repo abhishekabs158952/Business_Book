@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="mySidebar" class="sidebar bg-dark">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  {% if isLogin %}
+  <a href="#">Hey {{user.username}}!</a>
+  <a href="#">Customer Orders</a>
+  <a href="addStock">Add Stocks</a>
+  <a href="myStock">My Stocks</a>
+  <a href="billBook">Bill Book</a>
+  <a href="allTransection">Transactions</a> 
+  <a href="updateStock">Update Stocks</a> 
+  <a href="#">Contact Us</a>
+  <a href="logout">Logout</a>
+
+  {% else %}
+
+  {% endif %}
+</div>
+
+<div id="main">
+  <!--<button class="openbtn" onclick="openNav()">☰</button>-->
+  <h1 style="color: rgb(4, 51, 4);">New Orders!</h1>
+  <table style="margin-top: 30px;" class=" table table-success table striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">List</th>
+        <th scope="col">Customer_Name</th>
+        <th scope="col">Accept/Reject</th>
+        <th scope="col">Show Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in item %}
+      <tr>
+        <th scope="col">{{ i.id }}</th>
+        <th scope="col">{{i.customerId}}</th>
+        <form action="transectionValidity" method="POST">
+          {% csrf_token %}
+          <input name="id" value="{{i.id}}" style="display:none">
+          <th scope="col"><button type="submit" name="validity" value="accept">Accept</button>/
+            <button type="submit" name="validity" value="reject">Reject</button>
+          </th>
+        </form>
+        <th scope="col">
+          <form action="showDetails" method="POST">
+            {% csrf_token %}
+            <button type="submit" name="showDetails" value="{{ i.id }}">Show Details</button>
+          </form>
+        </th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div style="height:500px;">
+</div>
+{% endblock content %}

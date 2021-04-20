@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container border mt-2 pt-2">
+    <div class="position-relative container-fluid">
+        <div class="border position-absolute top-0 start-50 translate-middle-x">
+            <h2>{{reciver}}</h2>
+        </div>
+    </div>
+    {% for message in chatMessages %}
+    {% if message.sender == user.username %}
+    <div class="m-5 p-5 position-relative container">
+        <div class="p-5 position-absolute top-0 end-0">
+            <p> you </p>
+            <h6>{{ message.message }}</h6>
+            <small>{{message.dateTime}}</small>
+        </div>
+    </div>
+    {% else %}
+    <div class="m-5 p-5 position-relative container">
+        <div class="p-5 position-absolute top-0 start-0">
+            <p>{{reciver}}</p>
+            <h6>{{ message.message }}</h6>
+            <small>{{message.dateTime}}</small>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    <div>
+        <form action="/chat" method="POST" class="container-fluid">
+            {% csrf_token %}
+            <input style="display:none" value="{{transecId}}" name="transecId">
+            <input style="display:none" value="{{user.username}}" name="sender">
+            <div class="p-5">
+                <input type="text" name="inputMessage" class="container-fluid">
+                <button class="btn btn-primary" type="submit" name="sendMessage" value="1">Send</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

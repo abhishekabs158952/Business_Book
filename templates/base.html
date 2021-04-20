@@ -1,0 +1,390 @@
+<!doctype html>
+<style>
+    h2 {
+        color: green;
+    }
+
+    .hello {
+        background: linear-gradient(to bottom right, #aeec9d 27%, #00c291 81%);
+        position: absolute;
+        margin-left: 190px;
+    }
+
+    a:link,
+    a:visited {
+        color: black;
+    }
+
+    .form-popup {
+        display: none;
+        position: fixed;
+        right: 200px;
+        top: 0;
+        border: 3px solid rgba(27, 109, 34, 0.493);
+        z-index: 2;
+    }
+
+    .form-container {
+        max-width: 300px;
+        padding: 10px;
+        background: skyblue;
+        /*gradient of popup form*/
+    }
+
+    /* Full-width input fields */
+    .form-container input[type=text],
+    .form-container input[type=password] {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        border: none;
+        background: #f1f1f1;
+    }
+
+    /* When the inputs get focus, do something */
+    .form-container input[type=text]:focus,
+    .form-container input[type=password]:focus {
+        background-color: #ddd;
+        outline: none;
+    }
+
+    /* Set a style for the submit/login button */
+    .form-container .btn {
+        background: linear-gradient(to right, #04341b 22%, #26b323 100%);
+        color: white;
+        padding: 8px 13px;
+        border: none;
+        cursor: pointer;
+        width: 50%;
+        margin-bottom: 8px;
+        opacity: 0.8;
+    }
+
+    /*height of login/registor button*/
+    .butt {
+        height: 62px;
+    }
+
+    /* Add a background color to the cancel button */
+    .form-container .cancel {
+        background: linear-gradient(to right, #04341b 22%, #26b323 100%);
+        opacity: 0.8;
+    }
+
+    .form-container .cancel,
+    .btn hover {
+        color: white;
+        opacity: 20;
+    }
+
+    .btn-group2 .btn {
+        background: linear-gradient(to right, #04341b 22%, #26b323 100%);
+        width: 100%;
+        opacity: 0.8;
+    }
+
+    .btn-group2 .btn:hover {
+        opacity: 1;
+    }
+
+    /* Add some hover effects to buttons */
+    .form-container .btn:hover,
+    .open-button:hover {
+        opacity: 1;
+    }
+
+    ..form-popup {
+        visibility: visible;
+        -webkit-animation: fadeIn 2s;
+        animation: fadeIn 2s;
+    }
+     a:link, a:visited {
+  color:darkgreen;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration:underline;
+}
+.tabl{
+  padding-top: 13rem;
+}
+    /* Add animation (fade in the popup) */
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+        .sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background: skyblue;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 25px;
+  color:  green;
+  display: block;
+  transition: .3s;
+}
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background: linear-gradient(to bottom right, #0c0d0d 50%, #28805a 0%);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  opacity: 0.8;
+}
+.openbtn:hover {
+  opacity: 1;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+</style>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BUSINESSBOOK</title>
+    <!-- For Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!-- {% load static %}
+   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' % }">-->
+</head>
+
+<body style="background:white;">
+    <!--<div class="">
+  <h1>
+    BUSINESS BOOK
+  </h1>
+
+</div>
+-->
+    <!--<h2>Welcome to Business Book</h2>-->
+    {% if messages %}
+    {% for message in messages%}
+    <h2>{{message}}</h2>
+    {% endfor %}
+    {% endif %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            {% if isLogin %}
+                <button class="openbtn" onclick="openNav()">☰</button>
+            {% endif %}
+            {% if userType == '2' %}
+                <a class="navbar-brand" href="http://127.0.0.1:8000/@@">BusinessBook</a>
+            {% else %}
+                <a class="navbar-brand" href="http://127.0.0.1:8000/">BusinessBook</a>
+            {% endif %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active px-3" aria-current="page" href="#about">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-expanded="false">Mail us for Queries</a>
+                        <ul class="dropdown-menu" style="background: rgb(70, 126, 70);">
+                            <p><b>business@gmail.com</b></p>
+                        </ul>
+                    </li>
+                </ul>
+                <form action="search" method="POST" class="container-fluid  d-flex">
+                    {% csrf_token %}
+                    <input class="form-control me-2 mx-1" type="Number" placeholder="Pincode" aria-label="Search" name="pincode" value="{{ pincode }}">
+                    <button class="btn btn-primary mx-1" name="pincodeSubmit" type="submit" value="1">Search</button>
+                    <input class="form-control me-2 mx-1" type="text" placeholder="Search shop or item" aria-label="Search" name="shopOrItem">
+                    <button class="btn btn-primary mx-1" name="shopOrItemSubmit" type="submit" value="1">Search</button>
+                </form>
+                {% if isLogin %}
+                <button class="btn btn-primary mx-1">{{user.username}}</button>
+                <button class="btn btn-primary mx-1"><a  href="logout"
+                        style="color: white">Logout</a></button>
+                {% else %}
+                <button class="btn btn-primary px-3" onclick="openForm()">Login/Register</button>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <div class="form-popup" id="myForm">
+      <form class="form-container" action='login' method='post'>
+        {% csrf_token %}
+        <label for="email"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="userName" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password1" required>
+        <a href='/resetPassword' class="text-start">
+          <p class="text-start fs-6"><b>Forgot Password :(</b></p>
+        </a>
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary ">Login</button>
+        <div class="btn-group2 gap-3">
+          <a href="{% url 'customer_signup' %}" class="btn btn-secondary">Register as Customer</a>
+          <a href="{% url 'seller_signup' %}" class="btn btn-secondary">Register as Seller</a>
+        </div>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+      </form>
+    </div>
+    <div id="mySidebar" class="sidebar bg-dark">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        {% if isLogin %}
+
+            {% if userTypeC %}    
+                <a href="myAccount">Hey {{user.username}}!</a>
+                <a href="myOrder">My Orders</a>
+                <a href="cart">Cart</a>
+                <a href="#">Contact Us</a>
+                <a href="logout">Logout</a>
+            {% elif userTypeS %}
+                 <a href="myAccount">Hey {{user.username}}!</a>
+                <a href="/@@">Customer Orders</a>
+                <a href="addStock">Add Stocks</a>
+                <a href="myStock">My Stocks</a>
+                <a href="billBook">Bill Book</a>
+                <a href="allTransection">Transactions</a> 
+                <a href="updateStock">Update Stocks</a> 
+                <a href="#">Contact Us</a>
+                <a href="logout">Logout</a>
+
+            {% endif %}
+
+        {% else %}
+
+        {% endif %}
+    </div>
+
+    {% block content %}{% endblock content %}
+
+
+    <div class="container-fluid pb-0 mb-0 justify-content-center text-light " style="background:black;">
+        <footer>
+            <div class="row my-5 justify-content-center py-5">
+                <div class="col-11">
+                    <div class="row ">
+                        <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto mx-auto a">
+                            <h3 class="text-muted mb-md-0 mb-5 bold-text">Business Book</h3>
+                        </div>
+                        <div class="col-xl-2 col-md-4 col-sm-4 col-12">
+                            <h6 class="mb-3 mb-lg-4 bold-text "><b>MENU</b></h6>
+                            <ul class="list-unstyled">
+                                <li>Home</li>
+                                <li>About</li>
+                                <li>Blog</li>
+                                <li>Portfolio</li>
+                            </ul>
+                        </div>
+                        <div class="col-xl-2 col-md-4 col-sm-4 col-12">
+                            <h6 class="mb-3 mb-lg-4 text-muted bold-text mt-sm-0 mt-5"><b>ADDRESS</b></h6>
+                            <p class="mb-1">IIIT, Guwahati</p>
+                            <p>IT-Park Road</p>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-xl-8 col-md-4 col-sm-4 col-auto my-md-0 mt-5 order-sm-1 order-3 align-self-end">
+                            <p class="social text-muted mb-0 pb-0 bold-text"> <span class="mx-2"><i
+                                        class="fa fa-facebook" aria-hidden="true"></i></span> <span class="mx-2"><i
+                                        class="fa fa-linkedin-square" aria-hidden="true"></i></span> <span
+                                    class="mx-2"><i class="fa fa-twitter" aria-hidden="true"></i></span> <span
+                                    class="mx-2"><i class="fa fa-instagram" aria-hidden="true"></i></span> </p><small
+                                class="rights"><span>&#174;</span> Business Book All Rights
+                                Reserved.</small>
+                        </div>
+                        <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-1 align-self-end ">
+                            <h6 class="mt-55 mt-2 text-muted bold-text"><b>ABHISHEK KUMAR</b></h6><small> <span><i
+                                        class="fa fa-envelope" aria-hidden="true"></i></span>
+                                abhishek.kumar@iiitg.ac.in</small>
+                        </div>
+                        <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-2 align-self-end">
+                            <h6 class="mt-55 mt-2 text-muted bold-text"><b>ADITYA RAJ CHAUHAN</b></h6><small><span><i
+                                        class="fa fa-envelope" aria-hidden="true"></i></span>
+                                aditya.chauhan@iiitg.ac.in</small>
+                        </div>
+                        <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-1 align-self-end ">
+                            <h6 class="mt-55 mt-2 text-muted bold-text"><b>HARSHIT JAIN</b></h6><small> <span><i
+                                        class="fa fa-envelope" aria-hidden="true"></i></span>
+                                harshit.jain@iiitg.ac.in</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+        
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+        }
+    </script>
+    <!--login page ends here-->
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

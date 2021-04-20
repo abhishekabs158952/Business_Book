@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="mySidebar" class="sidebar bg-dark">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  {% if isLogin %}
+  <a href="#">Hey {{user.username}}!</a>
+  <a href="myOrder">My Orders</a>
+  <a href="cart">Cart</a>
+  <a href="#">Contact Us</a>
+  <a href="logout">Logout</a>
+
+  {% else %}
+
+  {% endif %}
+</div>
+<div class="container">
+    <div>
+        <table style="margin-top: 30px;" class=" table table-success table striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Seller_Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Show Details</th>
+                    <th scope="col">Order</th>
+                    <th scope="col">Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in order.cart %}
+                <tr>
+                    <th scope="col">{{ i.sellerId }}</th>
+                    <th scope="col">{{ i.dateTime }}</th>
+                    <th scope="col">
+                        <form action="showDetails" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="showDetails" value="{{ i.id }}">Show Details</button>
+                        </form>
+                    </th>
+                    <th scope="col">
+                        <form action="showDetails" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="orderNow" value="{{ i.id }}">Order Now</button>
+                        </form>
+                    </th>
+                    <th scope="col">
+                        <form action="showDetails" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="removeFromCart" value="{{ i.id }}">Remove from Cart</button>
+                        </form>
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+{% endblock content %}

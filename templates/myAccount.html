@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="mySidebar" class="sidebar bg-dark">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  {% if isLogin %}
+  <a href="myAccount">Hey {{user.username}}!</a>
+  <a href="myOrder">My Orders</a>
+  <a href="cart">Cart</a>
+  <a href="#">Contact Us</a>
+  <a href="logout">Logout</a>
+
+  {% else %}
+
+  {% endif %}
+</div>
+<div class="container m-5">
+    <div class="card container-fluid" style="max-width: 100%;">
+    <div class="row g-0">
+        <div class="col-md-4 p-2">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmlkNCDbvbD-luOiwdFgJHB8pZD2mf2Q866Q&usqp=CAU" alt="..."><br>
+            <form enctype="multipart/form-data" action="myAccount" method="POST">
+                {%csrf_token%}
+                Choose a file to upload: <input name="uploadPic" type="file"><br/>
+                <button class="btn btn-secondary m-4" name="uploadPhoto" value="1">Upload New Image</button>
+            </form>
+        </div>
+        <div class="col-md-8">
+        <div class="card-body p-2">
+            <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Details</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Name</th>
+                    <td>{{userDetails.name}}</td>
+                    <form action='myAccount' method="POST">
+                        {%csrf_token%}    
+                        <td>
+                            <input type="text" name="name">
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" name="nameSubmit" value="{{userDetails.userName}}"> Update </button>
+                        </td>
+                    </form>
+                </tr>
+                <tr>
+                    <th scope="row">emial</th>
+                    <td>{{userDetails.email}}</td>
+                    <form action='myAccount' method="POST">
+                        {%csrf_token%}    
+                        <td>
+                            <input type="email" name="email">
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" name="emailSubmit" value="{{userDetails.userName}}"> Update </button>
+                        </td>
+                    </form>
+                </tr>
+                <tr>
+                    <th scope="row">Phone number</th>
+                    <td>{{userDetails.phoneNumber}}</td>
+                    <form action='myAccount' method="POST">
+                        {%csrf_token%}    
+                        <td>
+                            <input type="Number" name="phone">
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" name="phoneSubmit" value="{{userDetails.userName}}"> Update </button>
+                        </td>
+                    </form>
+                </tr>
+                <tr>
+                    <th scope="row">Password</th>
+                    <form action='myAccount' method="POST">
+                        {%csrf_token%}    
+                        <td>
+                            <input type="password" name="oldPassword" placeholder="Old Password">
+                        </td>
+                        <td>
+                            <input type="text" name="newPassword" placeholder="New Password">
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" name="passwordSubmit" value="{{userDetails.userName}}"> Update </button>
+                        </td>
+                    </form>
+                </tr>
+            </tbody>
+            </table>
+            {% comment %} <h5 class="card-title"> Name </h5>
+            <p class="card-text"> Email </p>
+            <p class="card-text"> Phone Number </p>
+            <p class="card-text"> UserName </p>             {% endcomment %}
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock content %}

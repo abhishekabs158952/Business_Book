@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="mySidebar" class="sidebar bg-dark">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  {% if isLogin %}
+  <a href="#">Hey {{user.username}}!</a>
+  <a href="#">Customer Orders</a>
+  <a href="addStock">Add Stocks</a>
+  <a href="myStock">My Stocks</a>
+  <a href="billBook">Bill Book</a>
+  <a href="allTransection">Transactions</a> 
+  <a href="#">Contact Us</a>
+  <a href="logout">Logout</a>
+
+  {% else %}
+
+  {% endif %}
+</div>
+<div class="container">
+    <div>
+        <h1>Delivered</h1>
+        <table style="margin-top: 30px; background-color: lightgreen;" class="table striped table-hover" >
+            <thead>
+                <tr>
+                    <th scope="col">Customer_Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Show Details</th>
+                    <th scope="col">Chat</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in order.delivered %}
+                <tr>
+                    <th scope="col">{{ i.customerId }}</th>
+                    <th scope="col">{{ i.dateTime }}</th>
+                    <th scope="col">
+                        <form action="showDetails" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="showDetails" value="{{ i.id }}">Show Details</button>
+                        </form>
+                    </th>
+                    <th scope="col">
+                        <form action="chat" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="chat" value="{{ i.id }}">Chat</button>
+                        </form>
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h1>Accepted</h1>
+        <table style="margin-top: 30px;" class=" table table-success table striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Customer_Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Show Details</th>
+                    <th scope="col">Delivered/Paid</th>
+                    <th scope="col">Chat</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in order.confirm %}
+                <tr>
+                    <th scope="col">{{ i.customerId }}</th>
+                    <th scope="col">{{ i.dateTime }}</th>
+                    <th scope="col">
+                        <form action="showDetails" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="showDetails" value="{{ i.id }}">Show Details</button>
+                        </form>
+                    </th>
+                    <th scope="col">
+                        <form action="showDetails" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="delivered" value="{{ i.id }}">Delivered/Paid</button>
+                        </form>
+                    </th>
+                    <th scope="col">
+                        <form action="chat" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="chat" value="{{ i.id }}">Chat</button>
+                        </form>
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h1>Pending</h1>
+        <table style="margin-top: 30px;" class=" table table-warning table striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Customer_Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Show Details</th>
+                    <th scope="col">Chat</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in order.pending %}
+                <tr>
+                    <th scope="col">{{ i.customerId }}</th>
+                    <th scope="col">{{ i.dateTime }}</th>
+                    <th scope="col">
+                        <form action="showDetails" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="showDetails" value="{{ i.id }}">Show Details</button>
+                        </form>
+                    </th>
+                    <th scope="col">
+                        <form action="chat" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="chat" value="{{ i.id }}">Chat</button>
+                        </form>
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h1>Rejected</h1>
+        <table style="margin-top: 30px;" class=" table table-danger table striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Customer_Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Show Details</th>
+                    <th scope="col">Chat</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in order.rejected %}
+                <tr>
+                    <th scope="col">{{ i.customerId }}</th>
+                    <th scope="col">{{ i.dateTime }}</th>
+                    <th scope="col">
+                        <form action="showDetails" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="showDetails" value="{{ i.id }}">Show Details</button>
+                        </form>
+                    </th>
+                    <th scope="col">
+                        <form action="chat" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="chat" value="{{ i.id }}">Chat</button>
+                        </form>
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+      {% if isLogin %}
+      <a href="#">Hey {{user.username}}!</a>
+      <a href="#">Customer Orders</a>
+      <a href="addStock">ADD Stocks</a>
+      <a href="myStock">My Stocks</a>
+      <a href="billBook">Bill Book</a>
+      <a href="#">Contact Us</a>
+      <a href="logout">Logout</a>
+      
+      {% else %}
+       
+      {% endif %}
+    </div>
+    <div class="container">
+        <form action="bill" method="POST">
+            {% csrf_token %}
+            <div>
+                <h1>{{shopName}}</h1>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Select</th>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i,j in zipped %}
+                    <tr>
+                        <th scope="row"><input type="checkbox" id="vehicle1" name="{{j}}" value="Bike"></th>
+                        <th scope="row">{{j}}</th>
+                        <td>{{i.itemName}}</td>
+                        <td><input type="Number" class="form-control" name='{{j}}q'></td>
+                        <td>{{i.customerPrice}}</td>
+                        <td>$totalCal</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <th scope="row"></th>
+                        <th scope="row">total</th>
+                        <td></td>
+                        <td>TotalQuantity</td>
+                        <td></td>
+                        <td>$totalTCal</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary float-end" >Submit</button>
+        </form>
+    </div>
+    
+{% endblock content %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  {% if isLogin %}
+  <a href="#">Hey {{user.username}}!</a>
+  <a href="#">Customer Orders</a>
+  <a href="addStock">ADD Stocks</a>
+  <a href="myStock">My Stocks</a>
+  <a href="billBook">Bill Book</a>
+  <a href="#">Contact Us</a>
+  <a href="logout">Logout</a>
+
+  {% else %}
+
+  {% endif %}
+</div>
+<div class="container">
+  {% if messages %}
+  {% for message in messages%}
+  <h2>{{message}}</h2>
+  {% endfor %}
+  {% endif %}
+  <form>
+    {% csrf_token %}
+    <div>
+      <h1>{{user.username}}</h1>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">S.No</th>
+          <th scope="col">Item Id</th>
+          <th scope="col">Item Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i,j,k in zipped %}
+        <tr>
+          <th scope="row">1</th>
+          <td>{{i.itemId}}</td>
+          <td>{{i.itemName}}</td>
+          <td>{{j}}</td>
+          <td>{{i.customerPrice}}</td>
+          <td>{{k}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <th scope="row">Total</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{total}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+  <a href="@@">back to home</a>
+</div>
+{% endblock content %}
